@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N. Ayesha Roseni — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#eef0f5;
+    --ink:#161a24;
+    --ink-soft:#5a6070;
+    --line:#d9dce4;
+    --card:#ffffff;
+    --accent:#3452a3;
+    --accent-2:#d9694f;
+    --accent-glow:rgba(52,82,163,0.14);
+  }
+  html.dark{
+    --paper:#0d0f16;
+    --ink:#e8ebf3;
+    --ink-soft:#8b93a8;
+    --line:#242938;
+    --card:#141826;
+    --accent:#7c98e8;
+    --accent-2:#f0917a;
+    --accent-glow:rgba(124,152,232,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    transition:background .4s ease, color .4s ease;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Newsreader', serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; letter-spacing:0.01em; }
+  a{color:inherit;}
+  ::selection{background:var(--accent-glow);}
+
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px clamp(20px,5vw,64px);
+    background:color-mix(in srgb, var(--paper) 90%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-size:15px; font-weight:600; font-family:'Newsreader',serif;}
+  .brand span{ color:var(--accent-2); }
+  .switch{
+    display:flex; align-items:center; gap:10px;
+    cursor:pointer; background:none; border:none; color:var(--ink-soft);
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    text-transform:uppercase; letter-spacing:0.08em;
+  }
+  .switch-track{
+    width:42px; height:22px; border-radius:20px;
+    background:var(--line); position:relative;
+    transition:background .3s ease;
+  }
+  .switch-thumb{
+    position:absolute; top:3px; left:3px;
+    width:16px; height:16px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 4px var(--accent-glow);
+    transition:left .3s ease, background .3s ease;
+  }
+  html.dark .switch-thumb{ left:23px; }
+
+  .hero{
+    padding:clamp(56px,11vw,110px) clamp(20px,5vw,64px) clamp(30px,6vw,60px);
+    max-width:1000px;
+    position:relative;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; color:var(--accent-2);
+    text-transform:uppercase; letter-spacing:0.12em;
+    margin-bottom:24px;
+    font-family:'JetBrains Mono', monospace;
+  }
+  .eyebrow::before{
+    content:''; width:7px; height:7px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 0 5px var(--accent-glow);
+  }
+  .hero h1{
+    font-size:clamp(38px,6.2vw,66px);
+    font-weight:600;
+    line-height:1.08;
+  }
+  .hero h1 em{ font-style:italic; color:var(--accent); }
+  .hero .role{
+    font-size:clamp(16px,2vw,19px);
+    color:var(--ink-soft);
+    margin-top:20px;
+    font-weight:400;
+    max-width:600px;
+    line-height:1.65;
+  }
+  .dotfield{ margin-top:34px; width:100%; max-width:520px; height:40px; display:block; }
+  .dotfield circle{ fill:var(--accent); opacity:0; animation:pop .5s ease forwards; }
+  .dotfield circle.c2{ fill:var(--accent-2); }
+  @keyframes pop{ to{ opacity:1; transform:scale(1); } from{ opacity:0; transform:scale(0); } }
+
+  .hero-links{ margin-top:36px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    padding:12px 22px; border-radius:6px;
+    text-decoration:none; font-size:14px; font-weight:500;
+    border:1px solid var(--line);
+    transition:transform .2s ease, border-color .2s ease, background .2s ease;
+    display:inline-block;
+    font-family:'Inter',sans-serif;
+  }
+  .btn:hover{ transform:translateY(-2px); border-color:var(--accent); }
+  .btn.primary{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .btn.primary:hover{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+  section{ padding:52px clamp(20px,5vw,64px); max-width:1000px; }
+  .section-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:34px; border-bottom:1px solid var(--line); padding-bottom:14px;
+  }
+  .section-head .mono{ font-size:12px; color:var(--accent-2); }
+  .section-head h2{ font-size:clamp(22px,3vw,28px); font-weight:600; }
+
+  .about-body{ font-size:16.5px; line-height:1.8; color:var(--ink-soft); max-width:680px; }
+  .about-body strong{ color:var(--ink); font-weight:600; }
+
+  .skill-groups{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:26px; }
+  .skill-group h3{ font-size:12.5px; font-weight:600; color:var(--accent); margin-bottom:13px; text-transform:uppercase; letter-spacing:0.07em; font-family:'JetBrains Mono',monospace; }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    padding:7px 12px; border-radius:6px; font-size:12.5px;
+    background:var(--card); border:1px solid var(--line);
+  }
+  a.tag{ text-decoration:none; transition:border-color .2s ease, color .2s ease; }
+  a.tag:hover{ border-color:var(--accent-2); color:var(--accent-2); }
+
+  .projects{ display:grid; gap:18px; }
+  .project{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:26px 28px; position:relative;
+    border-top:3px solid var(--accent);
+    transition:transform .25s ease;
+  }
+  .project:hover{ transform:translateY(-3px); }
+  .project h3{ font-size:18px; font-weight:600; margin-bottom:6px; font-family:'Newsreader',serif;}
+  .project p{ font-size:14.5px; color:var(--ink-soft); line-height:1.65; margin:0 0 14px; }
+  .project .tags .tag{ font-size:11px; padding:5px 9px; }
+  .project-meta{ font-size:11.5px; color:var(--accent-2); margin-bottom:10px; font-family:'JetBrains Mono',monospace; }
+
+  .timeline{ border-left:2px solid var(--line); padding-left:26px; display:flex; flex-direction:column; gap:32px; }
+  .tl-item{ position:relative; }
+  .tl-item::before{
+    content:''; position:absolute; left:-31.5px; top:5px;
+    width:8px; height:8px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 0 4px var(--accent-glow);
+  }
+  .tl-item .mono{ font-size:11.5px; color:var(--accent-2); }
+  .tl-item h3{ font-size:16.5px; font-weight:600; margin:6px 0 4px; }
+  .tl-item p{ font-size:14px; color:var(--ink-soft); margin:0; }
+
+  footer{
+    padding:64px clamp(20px,5vw,64px) 46px; max-width:1000px;
+    border-top:1px solid var(--line); margin-top:16px;
+  }
+  footer h2{ font-size:clamp(26px,3.6vw,38px); font-weight:600; margin-bottom:14px; }
+  footer p{ color:var(--ink-soft); font-size:15.5px; margin-bottom:26px; max-width:500px; line-height:1.65; }
+  .contact-row{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:46px; }
+  .foot-bottom{ font-size:12px; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:'JetBrains Mono',monospace; }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } .dotfield circle{ opacity:1; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">AYESHA<span>.</span>ROSENI</div>
+  <button class="switch" id="themeToggle" aria-label="Toggle light and dark theme">
+    <span id="switchLabel">LIGHT</span>
+    <span class="switch-track"><span class="switch-thumb"></span></span>
+  </button>
+</div>
+
+<section class="hero">
+  <div class="eyebrow">AI & Data Science Student · Kadayanallur, Tamil Nadu</div>
+  <h1>N. Ayesha Roseni<br>reads the data<br><em>before the story.</em></h1>
+  <p class="role">B.Tech Artificial Intelligence and Data Science student at J.P College of Engineering, Tenkasi — eager to apply skills in data science, machine learning, and Python, and grow as a technology professional.</p>
+  <svg class="dotfield" viewBox="0 0 520 40">
+    <circle class="c1" cx="12" cy="20" r="5" style="animation-delay:.1s"/>
+    <circle class="c2" cx="40" cy="8" r="4" style="animation-delay:.18s"/>
+    <circle class="c1" cx="66" cy="28" r="3.5" style="animation-delay:.26s"/>
+    <circle class="c2" cx="98" cy="14" r="5" style="animation-delay:.34s"/>
+    <circle class="c1" cx="128" cy="24" r="4" style="animation-delay:.42s"/>
+    <circle class="c2" cx="160" cy="10" r="3.5" style="animation-delay:.5s"/>
+    <circle class="c1" cx="190" cy="26" r="5" style="animation-delay:.58s"/>
+    <circle class="c2" cx="222" cy="16" r="4" style="animation-delay:.66s"/>
+    <circle class="c1" cx="252" cy="6" r="3.5" style="animation-delay:.74s"/>
+    <circle class="c2" cx="284" cy="22" r="5" style="animation-delay:.82s"/>
+    <circle class="c1" cx="314" cy="12" r="4" style="animation-delay:.9s"/>
+    <circle class="c2" cx="346" cy="28" r="3.5" style="animation-delay:.98s"/>
+    <circle class="c1" cx="378" cy="18" r="5" style="animation-delay:1.06s"/>
+    <circle class="c2" cx="410" cy="8" r="4" style="animation-delay:1.14s"/>
+    <circle class="c1" cx="440" cy="24" r="3.5" style="animation-delay:1.22s"/>
+    <circle class="c2" cx="470" cy="14" r="5" style="animation-delay:1.3s"/>
+    <circle class="c1" cx="500" cy="26" r="4" style="animation-delay:1.38s"/>
+  </svg>
+  <div class="hero-links">
+    <a href="#projects" class="btn primary">See my work</a>
+    <a href="resume.pdf" class="btn" download>Download Resume</a>
+    <a href="#contact" class="btn">Get in touch</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-head"><span class="mono">01</span><h2>About</h2></div>
+  <p class="about-body">
+    I'm a motivated <strong>B.Tech Artificial Intelligence and Data Science</strong> student, seeking opportunities to apply my skills in <strong>data science, machine learning, and Python</strong>. I'm eager to learn, contribute to innovative projects, and grow as a technology professional.
+  </p>
+</section>
+
+<section id="skills">
+  <div class="section-head"><span class="mono">02</span><h2>Skills</h2></div>
+  <div class="skill-groups">
+    <div class="skill-group">
+      <h3>Programming & Scripting</h3>
+      <div class="tags">
+        <span class="tag">Java (Advanced)</span>
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript (Basics)</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Data Analysis & Visualization</h3>
+      <div class="tags">
+        <span class="tag">Power BI</span>
+        <span class="tag">Tableau</span>
+        <span class="tag">MS Excel</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Dev Environments & Tools</h3>
+      <div class="tags">
+        <span class="tag">Eclipse</span>
+        <span class="tag">Jupyter Notebook</span>
+        <span class="tag">Git</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Windows</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-head"><span class="mono">03</span><h2>Experience</h2></div>
+  <div class="projects">
+    <div class="project">
+      <h3>Data Science Intern — Thiranex</h3>
+      <div class="project-meta">18 June 2026 — 17 July 2026 · 30-day internship</div>
+      <p>Worked with Python, NumPy, Pandas, Matplotlib and Scikit-learn to perform data cleaning, preprocessing and exploratory data analysis. Built basic machine learning models and visualized results, improving analytical, problem-solving and programming skills.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Scikit-learn</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-head"><span class="mono">04</span><h2>Projects</h2></div>
+  <div class="projects">
+    <div class="project">
+      <h3>IoT Energy Management System</h3>
+      <div class="project-meta">MSME Idea Hackathon 2026</div>
+      <p>Submitted an innovation proposal focusing on AI & IoT-based energy management, presenting a concept for smarter, more efficient energy monitoring and control.</p>
+      <div class="tags">
+        <span class="tag">AI</span>
+        <span class="tag">IoT</span>
+        <span class="tag">Hackathon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-head"><span class="mono">05</span><h2>Education</h2></div>
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="mono">2024 — 2028</span>
+      <h3>B.Tech, Artificial Intelligence & Data Science</h3>
+      <p>J.P College of Engineering, Tenkasi · CGPA 8.19 / 10</p>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="section-head"><span class="mono">06</span><h2>Certifications</h2></div>
+  <div class="tags">
+    <span class="tag">Advanced Java Programming — Silicon Software Services, Madurai (2025)</span>
+    <span class="tag">Data Science Internship Certificate — Thiranex (2026)</span>
+    <span class="tag">Claude AI Fundamentals Certificate — Anthropic (2026)</span>
+    <span class="tag">Cloud Computing — Cursa Platform (2026)</span>
+    <span class="tag">Deep Learning with PyTorch — Cursa Platform (2026)</span>
+    <span class="tag">APIs for Beginners — Cursa Platform (2026)</span>
+    <span class="tag">Data Science & Analytics — HP LIFE Foundation (2026)</span>
+    <span class="tag">AI For Beginners — HP LIFE Foundation (2026)</span>
+    <span class="tag">Skill Nation Certification — Data Science & AI Tools (2025)</span>
+    <span class="tag">Data Science Workshop Certificate — Uptor / LMES (2025)</span>
+    <span class="tag">Digital Skills Certification — Naan Mudhalvan Scheme & Microsoft (2025)</span>
+  </div>
+</section>
+
+<footer id="contact">
+  <h2>Let's talk.</h2>
+  <p>Have an internship, a project, or just want to say hi — my inbox is open.</p>
+  <div class="contact-row">
+    <a href="mailto:ayesharoseni@gmail.com" class="btn primary">Email me</a>
+    <a href="tel:9025916643" class="btn">Call</a>
+    <a href="https://www.linkedin.com/in/ayesha-roseni-50b029390" class="btn">LinkedIn</a>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 N. Ayesha Roseni · Kadayanallur, Tamil Nadu</span>
+    <span>Built with HTML & CSS</span>
+  </div>
+</footer>
+
+<script>
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const label = document.getElementById('switchLabel');
+  function applyTheme(mode){
+    if(mode === 'dark'){ root.classList.add('dark'); label.textContent = 'DARK'; }
+    else { root.classList.remove('dark'); label.textContent = 'LIGHT'; }
+  }
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(prefersDark ? 'dark' : 'light');
+  toggle.addEventListener('click', () => {
+    applyTheme(root.classList.contains('dark') ? 'light' : 'dark');
+  });
+</script>
+
+</body>
+</html>
